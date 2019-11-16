@@ -2,16 +2,22 @@ package com.garamm.fcmspringboot.mapper;
 
 import com.garamm.fcmspringboot.appinfo.AppInfo;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper
-public interface AppInfoMapper {
+public class AppInfoMapper {
 
+    @Autowired
+    SqlSession sqlSession;
 
-    @Select("SELECT * FROM AppInfo")
-    public List<AppInfo> getAppList();
+    public List<AppInfo> getAppList(){
+
+        sqlSession.selectOne("time.getTime");
+
+        return null;
+    }
 
 }

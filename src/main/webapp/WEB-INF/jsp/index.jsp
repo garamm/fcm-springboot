@@ -50,6 +50,8 @@
 
         <div class="wrapper">
             <span class="label">수신자 설정</span>
+            <button onclick="addAppPopup(false)">앱 추가</button>
+            <button onclick="addTopicPopup(false)">주제 추가</button>
         </div>
 
         <!-- 앱 선택 -->
@@ -142,6 +144,55 @@
         </div>
     </div>
     <button onclick="sendCheck()">전송</button>
+
+    <!-- 앱 추가 팝업 -->
+    <div class="popup hide" id="addAppPopup">
+        <div class="popup-wrapper">
+                <div class="popup-header">
+                    <span>앱 추가</span>
+                    <button style="float: right" onclick="addAppPopup(true)">닫기</button>
+                </div>
+                <div class="popup-container">
+                        <span class="label">앱 이름</span>
+                        <input type="text" style="width: calc(100% - 80px);">
+                        <div style="text-align: center; margin-top: 10px;">
+                            <button onclick="addApp()">추가</button>
+                        </div>
+                </div>
+
+        </div>
+    </div>
+
+    <!-- 토픽 추가 팝업 -->
+    <div class="popup hide" id="addTopicPopup">
+        <div class="popup-wrapper">
+            <div class="popup-header">
+                <span>토픽 추가</span>
+                <button style="float: right" onclick="addTopicPopup(true)">닫기</button>
+            </div>
+            <div class="popup-container">
+                <div style="margin-bottom: 10px;">
+                    <span class="label">앱 선택</span>
+                    <select>
+                        <option>선택해주세요</option>
+                        <option>앱 이름1</option>
+                        <option>앱 이름2</option>
+                    </select>
+                </div>
+                <div>
+                    <span class="label">토픽 이름</span>
+                    <input type="text" style="width: calc(100% - 80px);">
+                </div>
+
+
+                <div style="text-align: center; margin-top: 10px;">
+                    <button onclick="addTopic()">추가</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 
 </html>
@@ -156,18 +207,18 @@
     var userList = [];
 
     /* 토픽 정보 조회 */
-    $.ajax({
-        url: "topics.json",
-        //data: { name: "홍길동" },
-        method: "GET",
-        dataType: "json"
-    })
-    .done(function (json) {
-        alert(json);
-    })
-    .fail(function(xhr, status, errorThrown) {
-        alert("topic 목록 조회 오류");
-    })
+    // $.ajax({
+    //     url: "topics.json",
+    //     //data: { name: "홍길동" },
+    //     method: "GET",
+    //     dataType: "json"
+    // })
+    // .done(function (json) {
+    //     alert(json);
+    // })
+    // .fail(function(xhr, status, errorThrown) {
+    //     alert("topic 목록 조회 오류");
+    // })
 
     /* 이미지 유무 라디오 선택 이벤트 */
     $('input[name="haveImg"]').change(function () {
@@ -267,9 +318,34 @@
         } else if (receiverType == 'individual') {
             alert("Ttt22");
         }
+    }
 
+    function addApp() {
+        addAppPopup(true);
+    }
+
+    function addTopic() {
+        addTopicPopup(true);
+    }
+
+
+    function addAppPopup(setHide) {
+        if(setHide) {
+            $('#addAppPopup').addClass('hide');
+        } else {
+            $('#addAppPopup').removeClass('hide');
+        }
 
     }
+
+    function addTopicPopup(setHide) {
+        if(setHide) {
+            $('#addTopicPopup').addClass('hide');
+        } else {
+            $('#addTopicPopup').removeClass('hide');
+        }
+    }
+
 
 </script>
 
@@ -362,5 +438,37 @@
 
     .hide {
         display: none;
+    }
+
+    .popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-wrapper {
+        width: 300px;
+        margin-left: calc(50% - 150px);
+        margin-top: 100px;
+        background: white;
+    }
+
+    .popup-header {
+        width: 100%;
+        background: skyblue;
+        text-align: left;
+        float: left;
+        padding: 5px;
+    }
+
+    .popup-container {
+        width: 100%;
+        text-align: left;
+        float: left;
+        padding: 5px;
+        background-color: white;
     }
 </style>

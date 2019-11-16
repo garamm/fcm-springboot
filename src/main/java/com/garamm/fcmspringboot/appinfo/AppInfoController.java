@@ -33,6 +33,6 @@ public class AppInfoController {
 
     @GetMapping("/test")
     private void test() {
-        System.out.println("ttt");
+        service.bulkInsert();
     }
 }
